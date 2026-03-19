@@ -28,6 +28,7 @@ output
 #  AI Code
 .codebuddy/*
 !.codebuddy/skills
+.lingma/*
 
 # Test coverage
 coverage
