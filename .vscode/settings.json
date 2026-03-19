@@ -35,5 +35,8 @@
   "files.exclude": {
     "**/.git": true,
     "**/node_modules": true
-  }
+  },
+
+  // ── CSS 验证器配置 ──
+  "css.lint.unknownAtRules": "ignore"
 }
