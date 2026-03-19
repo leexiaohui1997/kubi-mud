@@ -1,0 +1,19 @@
+{
+  "recommendations": [
+    // ── TypeScript & JavaScript ──
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+
+    // ── React ──
+    "dsznajder.es7-react-js-snippets",
+
+    // ── Tailwind CSS ──
+    "bradlc.vscode-tailwindcss",
+
+    // ── 编辑器增强 ──
+    "christian-kohler.path-intellisense",
+    "streetsidesoftware.code-spell-checker",
+    "usernamehw.errorlens",
+    "eamodio.gitlens"
+  ]
+}

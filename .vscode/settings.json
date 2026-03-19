@@ -1,0 +1,39 @@
+{
+  // ── 编辑器基础设置 ──
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "files.eol": "\n",
+
+  // ── 保存时格式化（Prettier 作为默认格式化器）──
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // ── 保存时 ESLint 自动修复 ──
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  // ── ESLint 配置（支持 Flat Config）──
+  "eslint.useFlatConfig": true,
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+
+  // ── Tailwind CSS IntelliSense ──
+  "tailwindCSS.experimental.classRegex": [],
+  "tailwindCSS.files.exclude": ["**/.git/**", "**/node_modules/**", "**/dist/**"],
+
+  // ── 文件关联 ──
+  "files.associations": {
+    "*.css": "css"
+  },
+
+  // ── 搜索 / 文件树排除 ──
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.git": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/node_modules": true
+  }
+}
