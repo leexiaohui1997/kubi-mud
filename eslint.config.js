@@ -11,6 +11,30 @@ import tailwindPlugin from 'eslint-plugin-tailwindcss'
 import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
+// ── 公共 import 规则配置（scripts/ 和 src/ 共用）──
+const importOrderRules = {
+  'import/no-duplicates': 'error',
+  'import/order': [
+    'warn',
+    {
+      groups: [
+        'builtin', // Node.js 内置模块
+        'external', // 外部依赖（node_modules）
+        'internal', // 内部路径别名（@/...）
+        'parent', // 父级路径（../）
+        'sibling', // 同级路径（./）
+        'index', // 索引文件
+        'type', // 类型导入
+      ],
+      'newlines-between': 'always',
+      alphabetize: {
+        order: 'asc',
+        caseInsensitive: true,
+      },
+    },
+  ],
+}
+
 export default defineConfig([
   // 忽略构建产物
   globalIgnores(['dist', 'node_modules']),
@@ -23,6 +47,28 @@ export default defineConfig([
         ...globals.node,
         ...globals.es2022,
       },
+    },
+  },
+
+  // ── Node.js 脚本环境（scripts/ 目录）──
+  {
+    files: ['scripts/**/*.{js,mjs,cjs}'],
+    extends: [js.configs.recommended],
+    plugins: {
+      prettier: prettierPlugin,
+      import: importPlugin,
+    },
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+        ...globals.es2022,
+      },
+    },
+    rules: {
+      'prettier/prettier': 'warn',
+      ...importOrderRules,
     },
   },
 
@@ -85,27 +131,8 @@ export default defineConfig([
       'react/react-in-jsx-scope': 'off',
 
       // ── Import 规则 ──
-      'import/no-duplicates': 'error',
+      ...importOrderRules,
       'import/no-unused-modules': 'warn',
-      'import/order': [
-        'warn',
-        {
-          groups: [
-            'builtin',    // Node.js 内置模块
-            'external',   // 外部依赖（node_modules）
-            'internal',   // 内部路径别名（@/...）
-            'parent',     // 父级路径（../）
-            'sibling',    // 同级路径（./）
-            'index',      // 索引文件
-            'type',       // 类型导入
-          ],
-          'newlines-between': 'always',
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: true,
-          },
-        },
-      ],
 
       // ── 无障碍访问（a11y）规则 ──
       'jsx-a11y/alt-text': 'warn',

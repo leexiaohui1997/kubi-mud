@@ -38,11 +38,27 @@ pnpm build
 
 ### 其他脚本
 
-| 命令                | 说明             |
-| ------------------- | ---------------- |
-| `pnpm dev`          | 启动开发服务器   |
-| `pnpm build`        | 构建生产版本     |
-| `pnpm preview`      | 预览生产构建     |
-| `pnpm lint`         | 运行 ESLint 检查 |
-| `pnpm format`       | 格式化代码       |
-| `pnpm format:check` | 检查代码格式     |
+| 命令                  | 说明                               |
+| --------------------- | ---------------------------------- |
+| `pnpm dev`            | 启动开发服务器                     |
+| `pnpm build`          | 构建生产版本                       |
+| `pnpm preview`        | 预览生产构建                       |
+| `pnpm lint`           | 运行 ESLint 检查                   |
+| `pnpm format`         | 格式化代码                         |
+| `pnpm format:check`   | 检查代码格式                       |
+| `pnpm serve:kubition` | 启动 kubition-advanture 游戏服务器 |
+
+### 启动游戏
+
+`kubition-advanture` 是以子仓库形式集成的 HTML 游戏，需通过本地 HTTP 服务器运行（直接打开 `index.html` 会因浏览器跨域限制导致资源加载失败）。
+
+```bash
+# 使用默认配置启动（端口 3000）
+pnpm serve:kubition
+
+# 指定端口
+pnpm serve:kubition --port=8080
+
+# 查看帮助
+pnpm serve:kubition --help
+```

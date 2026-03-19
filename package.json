@@ -15,7 +15,8 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,css,json}\"",
     "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "husky",
+    "serve:kubition": "node scripts/serve-kubition.js"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -51,6 +52,7 @@
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
+    "serve": "^14.2.6",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.56.1",
     "vite": "^8.0.0"
