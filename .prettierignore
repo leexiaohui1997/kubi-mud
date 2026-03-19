@@ -3,6 +3,7 @@ node_modules
 
 # 构建产物
 dist
+output
 
 # 第三方目录（不需要代码检查）
 kubition-advanture

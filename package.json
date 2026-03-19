@@ -17,6 +17,7 @@
     "preview": "vite preview",
     "prepare": "husky",
     "serve:kubition": "node scripts/serve-kubition.js",
+    "split:js": "node scripts/split-js.js",
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage"
@@ -49,6 +50,7 @@
     "@vitejs/plugin-react": "^6.0.0",
     "@vitest/coverage-v8": "^4.1.0",
     "acorn": "^8.16.0",
+    "acorn-jsx": "^5.3.2",
     "acorn-walk": "^8.3.5",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",

@@ -37,7 +37,7 @@ const importOrderRules = {
 
 export default defineConfig([
   // 忽略构建产物和第三方目录
-  globalIgnores(['dist', 'node_modules', 'kubition-advanture']),
+  globalIgnores(['dist', 'node_modules', 'kubition-advanture', 'output']),
 
   // ── Node.js 配置文件环境（vite.config.ts 等）──
   {
