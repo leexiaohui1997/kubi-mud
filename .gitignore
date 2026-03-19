@@ -26,3 +26,6 @@ dist-ssr
 
 #  AI Code
 .codebuddy
+
+# Test coverage
+coverage

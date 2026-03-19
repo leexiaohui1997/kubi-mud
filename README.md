@@ -7,6 +7,7 @@
 - **前端框架**：React 19 + TypeScript
 - **构建工具**：Vite 8
 - **样式方案**：Tailwind CSS v4
+- **测试框架**：Vitest + React Testing Library
 - **包管理器**：pnpm
 - **代码规范**：ESLint 9 + Prettier
 - **提交规范**：Commitlint + Husky
@@ -47,6 +48,9 @@ pnpm build
 | `pnpm format`         | 格式化代码                         |
 | `pnpm format:check`   | 检查代码格式                       |
 | `pnpm serve:kubition` | 启动 kubition-advanture 游戏服务器 |
+| `pnpm test`           | 启动测试（watch 模式）             |
+| `pnpm test:run`       | 运行测试（单次执行）               |
+| `pnpm test:coverage`  | 运行测试并生成覆盖率报告           |
 
 ### 启动游戏
 
@@ -62,3 +66,34 @@ pnpm serve:kubition --port=8080
 # 查看帮助
 pnpm serve:kubition --help
 ```
+
+## 单元测试
+
+项目使用 **Vitest** + **React Testing Library** 作为测试框架。
+
+### 测试文件命名规范
+
+- 测试文件与源文件同目录放置
+- 命名格式：`*.test.ts`、`*.test.tsx`、`*.spec.ts`、`*.spec.tsx`
+
+### 编写测试示例
+
+```typescript
+// 组件测试示例
+import { render, screen } from '@testing-library/react'
+import { describe, expect, it } from 'vitest'
+import MyComponent from './MyComponent'
+
+describe('MyComponent', () => {
+  it('renders correctly', () => {
+    render(<MyComponent />)
+    expect(screen.getByText('Hello')).toBeInTheDocument()
+  })
+})
+```
+
+### 最佳实践
+
+1. **测试用户可见行为**，而非实现细节
+2. **查询优先级**：`getByRole` > `getByLabelText` > `getByText` > `getByTestId`
+3. **覆盖率目标**：核心业务逻辑 ≥ 80%，工具函数 ≥ 90%

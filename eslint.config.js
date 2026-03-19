@@ -36,8 +36,8 @@ const importOrderRules = {
 }
 
 export default defineConfig([
-  // 忽略构建产物
-  globalIgnores(['dist', 'node_modules']),
+  // 忽略构建产物和第三方目录
+  globalIgnores(['dist', 'node_modules', 'kubition-advanture']),
 
   // ── Node.js 配置文件环境（vite.config.ts 等）──
   {
@@ -69,6 +69,26 @@ export default defineConfig([
     rules: {
       'prettier/prettier': 'warn',
       ...importOrderRules,
+    },
+  },
+
+  // ── 测试文件环境（vitest 全局变量）──
+  {
+    files: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}', 'src/test/**/*.ts'],
+    languageOptions: {
+      globals: {
+        // Vitest 全局变量
+        describe: 'readonly',
+        it: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        vi: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        suite: 'readonly',
+      },
     },
   },
 
