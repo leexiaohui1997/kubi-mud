@@ -25,7 +25,8 @@ dist-ssr
 *.sw?
 
 #  AI Code
-.codebuddy
+.codebuddy/*
+!.codebuddy/skills
 
 # Test coverage
 coverage

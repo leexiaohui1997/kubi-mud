@@ -1,0 +1,92 @@
+{
+  "fertilizer": {
+    "timeNeed": 0.2,
+    "require": {
+      "shit": 1
+    }
+  },
+  "poizon": {
+    "timeNeed": 2,
+    "require": {
+      "poizonRoot": 2
+    }
+  },
+  "water": {
+    "timeNeed": 0.5,
+    "amount": 5,
+    "require": {
+      "jellyfish": 1
+    },
+    "event": "gulf"
+  },
+  "soul": {
+    "timeNeed": 0.5,
+    "amount": 3,
+    "require": {
+      "reiPart": 1
+    },
+    "science": "potion_2"
+  },
+  "healPotion": {
+    "timeNeed": 1,
+    "require": {
+      "alco": 1,
+      "bark": 1
+    }
+  },
+  "hpPotion": {
+    "timeNeed": 2,
+    "require": {
+      "herb": 2,
+      "water": 1
+    },
+    "science": "potion_1"
+  },
+  "icePotion": {
+    "timeNeed": 1,
+    "require": {
+      "ice": 2
+    },
+    "science": "potion_1"
+  },
+  "psPotion": {
+    "timeNeed": 2,
+    "require": {
+      "water": 1,
+      "clawRoot": 1
+    },
+    "science": "potion_1"
+  },
+  "bigPsPotion": {
+    "timeNeed": 3,
+    "require": {
+      "bile": 1,
+      "clawRoot": 1
+    },
+    "science": "potion_2"
+  },
+  "smallSanPotion": {
+    "timeNeed": 1,
+    "require": {
+      "alco": 1,
+      "clawRoot": 1
+    },
+    "science": "potion_1"
+  },
+  "bighpPotion": {
+    "timeNeed": 3,
+    "require": {
+      "hpPotion": 2,
+      "water": 1
+    },
+    "science": "potion_2"
+  },
+  "poizonBumb": {
+    "timeNeed": 1,
+    "require": {
+      "poizon": 1,
+      "part": 3
+    },
+    "science": "potion_2"
+  }
+}
