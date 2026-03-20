@@ -6,11 +6,14 @@ import { RouterProvider } from 'react-router'
 
 import router from './router'
 import { DeviceProvider } from './utils/device/deviceProvider.tsx'
+import { ThemeProvider } from './utils/theme/themeProvider.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <DeviceProvider>
-      <RouterProvider router={router} />
-    </DeviceProvider>
+    <ThemeProvider>
+      <DeviceProvider>
+        <RouterProvider router={router} />
+      </DeviceProvider>
+    </ThemeProvider>
   </StrictMode>,
 )

@@ -1,4 +1,57 @@
-@import 'tailwindcss';
-
 @custom-variant pc (.is-pc &);
 @custom-variant mobile (.is-mobile &);
+
+/* 主题应用逻辑 */
+@theme {
+  --color-primary-50: oklch(97.7% 0.014 308.299);
+  --color-primary-100: oklch(94.6% 0.033 307.174);
+  --color-primary-200: oklch(90.2% 0.063 306.703);
+  --color-primary-300: oklch(82.7% 0.119 306.383);
+  --color-primary-400: oklch(71.4% 0.203 305.504);
+  --color-primary-500: oklch(62.7% 0.265 303.9);
+  --color-primary-600: oklch(55.8% 0.288 302.321);
+  --color-primary-700: oklch(49.6% 0.265 301.924);
+  --color-primary-800: oklch(43.8% 0.218 303.724);
+  --color-primary-900: oklch(38.1% 0.176 304.987);
+  --color-primary-950: oklch(29.1% 0.149 302.717);
+
+  --color-secondary-50: oklch(98.5% 0 0);
+  --color-secondary-100: oklch(97% 0 0);
+  --color-secondary-200: oklch(92.2% 0 0);
+  --color-secondary-300: oklch(87% 0 0);
+  --color-secondary-400: oklch(70.8% 0 0);
+  --color-secondary-500: oklch(55.6% 0 0);
+  --color-secondary-600: oklch(43.9% 0 0);
+  --color-secondary-700: oklch(37.1% 0 0);
+  --color-secondary-800: oklch(26.9% 0 0);
+  --color-secondary-900: oklch(20.5% 0 0);
+  --color-secondary-950: oklch(14.5% 0 0);
+}
+
+.dark {
+  --color-primary-50: oklch(98.7% 0.022 95.277);
+  --color-primary-100: oklch(96.2% 0.059 95.617);
+  --color-primary-200: oklch(92.4% 0.12 95.746);
+  --color-primary-300: oklch(87.9% 0.169 91.605);
+  --color-primary-400: oklch(82.8% 0.189 84.429);
+  --color-primary-500: oklch(76.9% 0.188 70.08);
+  --color-primary-600: oklch(66.6% 0.179 58.318);
+  --color-primary-700: oklch(55.5% 0.163 48.998);
+  --color-primary-800: oklch(47.3% 0.137 46.201);
+  --color-primary-900: oklch(41.4% 0.112 45.904);
+  --color-primary-950: oklch(27.9% 0.077 45.635);
+
+  --color-secondary-950: oklch(98.5% 0 0);
+  --color-secondary-900: oklch(97% 0 0);
+  --color-secondary-800: oklch(92.2% 0 0);
+  --color-secondary-700: oklch(87% 0 0);
+  --color-secondary-600: oklch(70.8% 0 0);
+  --color-secondary-500: oklch(55.6% 0 0);
+  --color-secondary-400: oklch(43.9% 0 0);
+  --color-secondary-300: oklch(37.1% 0 0);
+  --color-secondary-200: oklch(26.9% 0 0);
+  --color-secondary-50: oklch(14.5% 0 0);
+  --color-secondary-100: oklch(20.5% 0 0);
+}
+
+@import 'tailwindcss';

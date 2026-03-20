@@ -162,15 +162,69 @@ describe('Modal 组件 - 动画与挂载', () => {
   })
 
   it('open 从 true 变为 false 后，延迟 200ms 卸载 DOM', async () => {
-    const { rerender } = render(<Modal open={true}>内容</Modal>)
+    const { rerender, unmount } = render(<Modal open={true}>内容</Modal>)
     expect(screen.getByRole('dialog')).toBeInTheDocument()
+
+    // 使用 act 包裹状态更新
+    await vi.runOnlyPendingTimersAsync()
 
     rerender(<Modal open={false}>内容</Modal>)
     // 200ms 前仍挂载
     expect(screen.getByRole('dialog')).toBeInTheDocument()
 
-    vi.advanceTimersByTime(200)
-    // 200ms 后卸载
+    // 推进时间并等待所有微任务完成
+    await vi.advanceTimersByTimeAsync(200)
+
+    // 200ms 后应该卸载
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+
+    // 清理
+    unmount()
+  })
+})
+
+describe('Modal 组件 - 主题颜色', () => {
+  it('应该使用 primary-300 作为主要文本颜色', () => {
+    const { container } = render(<Modal open={true}>内容</Modal>)
+    const dialog = container.querySelector('[role="dialog"]')
+    expect(dialog).toHaveClass('text-primary-300')
+  })
+
+  it('边框应该使用 primary-300/40', () => {
+    const { container } = render(<Modal open={true}>内容</Modal>)
+    const dialog = container.querySelector('[role="dialog"]')
+    expect(dialog).toHaveClass('border-primary-300/40')
+  })
+
+  it('关闭按钮应该使用 primary-300/60', () => {
+    const { container } = render(<Modal open={true}>内容</Modal>)
+    const closeButton = container.querySelector('button[aria-label="关闭"]')
+    expect(closeButton).toHaveClass('text-primary-300/60')
+  })
+
+  it('关闭按钮 hover 时应该变为 primary-300', () => {
+    const { container } = render(<Modal open={true}>内容</Modal>)
+    const closeButton = container.querySelector('button[aria-label="关闭"]')
+    expect(closeButton).toHaveClass('hover:text-primary-300')
+  })
+
+  it('头部边框应该使用 primary-300/20', () => {
+    const { container } = render(
+      <Modal open={true} title="标题">
+        内容
+      </Modal>,
+    )
+    const header = container.querySelector('.border-b')
+    expect(header).toHaveClass('border-primary-300/20')
+  })
+
+  it('底部边框应该使用 primary-300/20', () => {
+    const { container } = render(
+      <Modal open={true} footer={<div>底部</div>}>
+        内容
+      </Modal>,
+    )
+    const footer = container.querySelector('.border-t')
+    expect(footer).toHaveClass('border-primary-300/20')
   })
 })

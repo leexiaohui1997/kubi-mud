@@ -94,19 +94,19 @@ function Modal({
         role="dialog"
         aria-modal="true"
         aria-label={typeof title === 'string' ? title : '弹窗'}
-        className={`relative flex w-full max-w-md flex-col border border-amber-300/40 bg-neutral-900 text-amber-300 shadow-lg shadow-black/50 transition-all duration-200 ${panelClass}`}
+        className={`relative flex w-full max-w-md flex-col border border-primary-300/40 bg-neutral-900 text-primary-300 shadow-lg shadow-black/50 transition-all duration-200 ${panelClass}`}
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => e.stopPropagation()}
       >
         {/* 头部 */}
         {showHeader && (
-          <div className="flex items-center justify-between border-b border-amber-300/20 px-4 py-3">
-            <span className="text-sm font-semibold tracking-wider text-amber-300">
+          <div className="flex items-center justify-between border-b border-primary-300/20 px-4 py-3">
+            <span className="text-sm font-semibold tracking-wider text-primary-300">
               {title ?? ''}
             </span>
             {showCloseButton !== false && (
               <button
-                className="ml-4 flex h-6 w-6 items-center justify-center text-amber-300/60 transition-colors hover:text-amber-300 pc:cursor-pointer"
+                className="ml-4 flex h-6 w-6 items-center justify-center text-primary-300/60 transition-colors hover:text-primary-300 pc:cursor-pointer"
                 onClick={onClose}
                 aria-label="关闭"
               >
@@ -120,7 +120,7 @@ function Modal({
         <div className={`flex-1 overflow-auto ${noPadding ? '' : 'p-4'}`}>{children}</div>
 
         {/* 底部 */}
-        {footer && <div className="border-t border-amber-300/20 px-4 py-3">{footer}</div>}
+        {footer && <div className="border-t border-primary-300/20 px-4 py-3">{footer}</div>}
       </div>
     </div>
   )
