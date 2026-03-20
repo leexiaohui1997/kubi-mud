@@ -25,6 +25,13 @@ export function DeviceProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
+  useEffect(() => {
+    const type = deviceType
+    const domEl = document.documentElement
+    domEl.classList.add(`is-${type}`)
+    return () => domEl.classList.remove(`is-${type}`)
+  }, [deviceType])
+
   return (
     <DeviceContext.Provider
       value={{
