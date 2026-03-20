@@ -169,7 +169,8 @@ export default defineConfig([
 
       // ── Tailwind CSS 规则 ──
       // beta 版对 v4 的支持，no-contradicting-classname 存在已知误报，暂时关闭
-      'tailwindcss/classnames-order': 'warn',
+      // classnames-order 与 prettier-plugin-tailwindcss 排序逻辑冲突，以 Prettier 为准
+      'tailwindcss/classnames-order': 'off',
       'tailwindcss/no-custom-classname': [
         'warn',
         {
