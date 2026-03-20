@@ -174,3 +174,57 @@ pnpm test:run path/to/test.test.ts
 4. 使用 `@` 路径别名引用源码
 5. 异步测试使用 `async/await` 和 `waitFor`
 6. 保持测试独立，避免测试间依赖
+7. **使用 `vi.resetModules()` 时，所有依赖同一 Context 的模块必须一起动态 import**：`vi.resetModules()` 会清空模块缓存，若静态 import 的 Provider 和动态 import 的组件持有不同 Context 实例，Context 将无法传递。正确做法是在 `resetModules()` 后用 `Promise.all` 同时动态 import 所有相关模块：
+
+   ```ts
+   async function renderComponent() {
+     vi.resetModules()
+     const [{ default: Provider }, { default: Component }] = await Promise.all([
+       import('@/components/SomeProvider'),
+       import('./SomeComponent'),
+     ])
+     render(<Provider><Component /></Provider>)
+   }
+   ```
+
+8. **查询弹窗/局部区域内的文本时，用 `within()` 限定范围**：当弹窗标题与页面上其他元素文字相同时，`getByText()` 会匹配到多个元素报错。应先获取容器元素，再用 `within()` 在其内部查询：
+
+   ```ts
+   // ❌ 可能匹配到多个元素
+   expect(screen.getByText('读取存档')).toBeInTheDocument()
+
+   // ✅ 限定在 dialog 内部查找
+   const dialog = screen.getByRole('dialog')
+   expect(within(dialog).getByText('读取存档')).toBeInTheDocument()
+   ```
+
+9. **不能在组件渲染体中对外部变量赋值（React 纯函数规则）**：ESLint 禁止在组件渲染中修改外部变量。测试中若需捕获 Context 值，应通过 prop 回调传出，赋值发生在回调内部而非渲染体中：
+
+   ```ts
+   // ❌ 直接赋值外部变量（ESLint 报错）
+   let ctxValue: unknown
+   function Consumer() {
+     ctxValue = useContext(MyContext)
+     return null
+   }
+
+   // ✅ 通过 prop 回调传出
+   let capturedCtx: unknown
+   function Consumer({ onCapture }: { onCapture: (ctx: unknown) => void }) {
+     const ctx = useContext(MyContext)
+     onCapture(ctx)
+     return null
+   }
+   render(<Provider><Consumer onCapture={(ctx) => { capturedCtx = ctx }} /></Provider>)
+   ```
+
+10. **组件有离开动画时，关闭后需等待 DOM 卸载再断言**：若组件关闭时有延迟动画（如 200ms），立即断言元素不存在会失败。应为 `waitFor` 设置足够的 `timeout`：
+
+    ```ts
+    await waitFor(
+      () => {
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+      },
+      { timeout: 500 },
+    )
+    ```

@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 // 使用可变对象，方便在测试中动态修改 mock 值
@@ -10,12 +11,21 @@ const mockGame = {
 
 vi.mock('@/config/game', () => mockGame)
 
-// 每次重置模块缓存后动态 import，确保拿到最新 mock 值
+// 每次重置模块缓存后动态 import，确保所有模块（含 ModalContext）使用同一实例
 async function renderStartPage() {
   vi.resetModules()
   vi.mock('@/config/game', () => mockGame)
-  const { default: StartPage } = await import('./StartPage')
-  render(<StartPage />)
+  // ModalProvider 与 StartPage 必须在同一次 resetModules 后 import，
+  // 保证它们共享同一个 ModalContext 实例
+  const [{ default: ModalProvider }, { default: StartPage }] = await Promise.all([
+    import('@/components/Modal/ModalProvider'),
+    import('./StartPage'),
+  ])
+  render(
+    <ModalProvider>
+      <StartPage />
+    </ModalProvider>,
+  )
 }
 
 describe('StartPage 组件', () => {
@@ -65,5 +75,69 @@ describe('StartPage 组件 - 空值处理', () => {
     mockGame.GAME_VERSION = ''
     await renderStartPage()
     expect(screen.queryByText(/^v/)).not.toBeInTheDocument()
+  })
+})
+
+describe('StartPage 组件 - 弹窗交互', () => {
+  it('点击「读取存档」按钮应打开弹窗并显示标题', async () => {
+    const user = userEvent.setup()
+    await renderStartPage()
+
+    await user.click(screen.getByRole('button', { name: '读取存档' }))
+
+    await waitFor(() => {
+      const dialog = screen.getByRole('dialog')
+      expect(dialog).toBeInTheDocument()
+      // 在弹窗内部查找标题，避免与按钮文字冲突
+      expect(within(dialog).getByText('读取存档')).toBeInTheDocument()
+    })
+  })
+
+  it('点击「游戏设置」按钮应打开弹窗并显示标题', async () => {
+    const user = userEvent.setup()
+    await renderStartPage()
+
+    await user.click(screen.getByRole('button', { name: '游戏设置' }))
+
+    await waitFor(() => {
+      const dialog = screen.getByRole('dialog')
+      expect(dialog).toBeInTheDocument()
+      // 在弹窗内部查找标题，避免与按钮文字冲突
+      expect(within(dialog).getByText('游戏设置')).toBeInTheDocument()
+    })
+  })
+
+  it('点击弹窗关闭按钮后弹窗应关闭', async () => {
+    const user = userEvent.setup()
+    await renderStartPage()
+
+    // 打开弹窗
+    await user.click(screen.getByRole('button', { name: '读取存档' }))
+    await waitFor(() => {
+      expect(screen.getByRole('dialog')).toBeInTheDocument()
+    })
+
+    // 点击关闭按钮
+    await user.click(screen.getByRole('button', { name: '关闭' }))
+
+    // 等待离开动画结束后 DOM 卸载（200ms timeout）
+    await waitFor(
+      () => {
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+      },
+      { timeout: 500 },
+    )
+  })
+
+  it('弹窗内应显示「暂未实现」占位内容', async () => {
+    const user = userEvent.setup()
+    await renderStartPage()
+
+    await user.click(screen.getByRole('button', { name: '读取存档' }))
+
+    await waitFor(() => {
+      const dialog = screen.getByRole('dialog')
+      expect(within(dialog).getByText('暂未实现')).toBeInTheDocument()
+    })
   })
 })
