@@ -170,7 +170,13 @@ export default defineConfig([
       // ── Tailwind CSS 规则 ──
       // beta 版对 v4 的支持，no-contradicting-classname 存在已知误报，暂时关闭
       'tailwindcss/classnames-order': 'warn',
-      'tailwindcss/no-custom-classname': 'warn',
+      'tailwindcss/no-custom-classname': [
+        'warn',
+        {
+          skipClassAttribute: true,
+          callees: ['clsx'],
+        },
+      ],
       'tailwindcss/no-contradicting-classname': 'off',
     },
   },
