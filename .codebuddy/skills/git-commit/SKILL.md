@@ -16,6 +16,7 @@ description: 这个 skill 帮助你生成符合 Conventional Commits 规范的 G
 - 生成符合 Conventional Commits 规范的提交信息
 - 支持所有标准 commit 类型
 - 提供详细的变更分析
+- 提交完成后对本次变更作出专业性评价
 
 ## Commit 类型说明
 
